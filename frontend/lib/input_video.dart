@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
 
-class InputVideoFeed extends StatelessWidget {
+class InputVideoFeed extends StatefulWidget {
   const InputVideoFeed({super.key});
 
+  @override
+  State<InputVideoFeed> createState() => _InputVideoFeedState();
+}
+
+class _InputVideoFeedState extends State<InputVideoFeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +25,9 @@ class InputVideoFeed extends StatelessWidget {
                 color: Colors.grey,
                 width: MediaQuery.of(context).size.width * 1,
                 height: MediaQuery.of(context).size.height * 0.5,
+                // child: galleryFile == null
+                //     ? const Center(child: Text('Sorry nothing selected!!'))
+                //     : Text(galleryFile!.path),
               ),
             ),
             Padding(
@@ -30,7 +38,11 @@ class InputVideoFeed extends StatelessWidget {
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(25)),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    ImagePicker imagePicker = ImagePicker();
+                    XFile? file = await imagePicker.pickVideo(
+                        source: ImageSource.gallery);
+                  },
                   child: const Text('Click me'),
                 ),
               ),
